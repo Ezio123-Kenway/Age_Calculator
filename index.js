@@ -42,13 +42,12 @@ button.addEventListener('click', () => {
         return;
     }
 
-    const requiredRestriction = dayInputValue.length !== 2 && monthInputValue !== 2 && yearInputValue !== 4 ;
-    if (requiredRestriction) {
-        errorTag.innerHTML = "Your input data does not follow the standard rule! Retry";
-        return;
-    }
+    // if (!(dayInputValue.length <= 2 && monthInputValue <= 2)) {
+    //     errorTag.innerHTML = "Your input data does not follow the standard rule! Retry";
+    //     return;
+    // }
 
-    if (isNaN(dayInputValue) || isNaN(monthInputValue) || isNaN(yearInputValue)) {
+    if (dayInputValue.includes('+') || monthInputValue.includes('+') || yearInputValue.includes('+') || dayInputValue.includes('-') || monthInputValue.includes('-') || yearInputValue.includes('-') || dayInputValue.includes('.') || monthInputValue.includes('.') || yearInputValue.includes('.') || isNaN(dayInputValue) || isNaN(monthInputValue) || isNaN(yearInputValue) ) {
         errorTag.innerHTML = "Invalid Data Type";
         return;
     }
@@ -89,13 +88,13 @@ button.addEventListener('click', () => {
     const birthTime = new Date(parsedYearInputValue, parsedMonthInputValue, parsedDayInputValue).getTime();
     const totalDurationTime = currentTime - birthTime ;
 
-    const totalYears = Math.floor(totalDurationTime/(86400000*365));
+    let totalYears = Math.floor(totalDurationTime/(86400000*365));
     
     const remainder1 = totalDurationTime%(86400000*365);
-    const totalMonths = Math.floor(remainder1/(86400000*30));
+    let totalMonths = Math.floor(remainder1/(86400000*30));
 
     const remainder2 = remainder1%(86400000*30);
-    const totalDays = Math.floor(remainder2/86400000);
+    let totalDays = Math.floor(remainder2/86400000);
 
     if(totalMonths >= 12) {
         const yearsToAdd = Math.floor(totalMonths/12);
