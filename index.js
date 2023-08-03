@@ -35,14 +35,20 @@ button.addEventListener('click', () => {
     dayTag.innerHTML = "";
 
     // Error Handling
-    // errorTag.innerHTML = "";
+    errorTag.innerHTML = "";
 
     if (dayInputValue === "" || monthInputValue === "" || yearInputValue === "") {
         errorTag.innerHTML = "Please submit your date of birth completely";
         return;
     }
 
-    if(isNaN(dayInputValue) || isNaN(monthInputValue) || isNaN(yearInputValue)) {
+    const requiredRestriction = dayInputValue.length !== 2 && monthInputValue !== 2 && yearInputValue !== 4 ;
+    if (requiredRestriction) {
+        errorTag.innerHTML = "Your input data does not follow the standard rule! Retry";
+        return;
+    }
+
+    if (isNaN(dayInputValue) || isNaN(monthInputValue) || isNaN(yearInputValue)) {
         errorTag.innerHTML = "Invalid Data Type";
         return;
     }
