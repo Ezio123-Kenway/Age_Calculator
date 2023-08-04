@@ -42,13 +42,19 @@ button.addEventListener('click', () => {
         return;
     }
 
-    // if (!(dayInputValue.length <= 2 && monthInputValue <= 2)) {
-    //     errorTag.innerHTML = "Your input data does not follow the standard rule! Retry";
-    //     return;
-    // }
+    const restriction = dayInputValue.length !== 2 || monthInputValue.length !== 2 || yearInputValue.length !== 4 ;
+    if (restriction) {
+        errorTag.innerHTML = "Your data does not follow the standard rule";
+        return;
+    }
 
-    if (dayInputValue.includes('+') || monthInputValue.includes('+') || yearInputValue.includes('+') || dayInputValue.includes('-') || monthInputValue.includes('-') || yearInputValue.includes('-') || dayInputValue.includes('.') || monthInputValue.includes('.') || yearInputValue.includes('.') || isNaN(dayInputValue) || isNaN(monthInputValue) || isNaN(yearInputValue) ) {
-        errorTag.innerHTML = "Invalid Data Type";
+    const restrictedPattern = /[\+\-\.]/;
+    const dayInputIsNotRestricted = restrictedPattern.test(dayInputValue);
+    const monthInputIsNotRestricted = restrictedPattern.test(monthInputValue);
+    const yearInputIsNotRestricted = restrictedPattern.test(yearInputValue);
+
+    if (dayInputIsNotRestricted || monthInputIsNotRestricted || yearInputIsNotRestricted) {
+        errorTag.innerHTML = "Your data format is wrong";
         return;
     }
 
