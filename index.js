@@ -42,13 +42,13 @@ button.addEventListener('click', () => {
         return;
     }
 
-    const restriction = dayInputValue.length !== 2 || monthInputValue.length !== 2 || yearInputValue.length !== 4 ;
+    const restriction = dayInputValue.length > 2 || monthInputValue.length > 2 || yearInputValue.length !== 4 ;
     if (restriction) {
         errorTag.innerHTML = "Your data does not follow the standard rule";
         return;
     }
 
-    const restrictedPattern = /[\+\-\.]/;
+    const restrictedPattern = /[\+\-\*\/\.\&\$\%\^\#\!\@\^]/;
     const dayInputIsNotRestricted = restrictedPattern.test(dayInputValue);
     const monthInputIsNotRestricted = restrictedPattern.test(monthInputValue);
     const yearInputIsNotRestricted = restrictedPattern.test(yearInputValue);
@@ -60,7 +60,7 @@ button.addEventListener('click', () => {
 
     const currentYear = new Date().getFullYear();
 
-    if (parsedDayInputValue > 31 || parsedMonthInputValue > 11 || parsedYearInputValue > currentYear) {
+    if (parsedDayInputValue > 31 || parsedDayInputValue < 1 || parsedMonthInputValue > 11 || parsedYearInputValue > currentYear) {
         errorTag.innerHTML = "Your data is impossible";
         return;
     }
@@ -83,8 +83,8 @@ button.addEventListener('click', () => {
         if (!isLeapYear) {
             if(parsedDayInputValue === 29) {
                 errorTag.innerHTML = "Impossible! Your year of birth is not leap year";
+                return;
             }
-            return;
         }
     }
 
